@@ -29,7 +29,37 @@ of winning against a particular player.
 
 ### Methodology
 
-*Place_Holder*
+#### Data Cleaning / Acquiring
+
+Our main source of data is coming from famous TFT Youtuber, recorded in the file
+[Youtuber_list.csv](data/Youtuber_list.csv). We than fetch all of their videos 
+from the YouTube video streams using package "selenium" and "pytube". Please refer 
+to [Video_Download.ipynb](Video_Download.ipynb) for detail workflow. We constrain
+each video download to be in "480p", "30fps" and "H.264" encoding format. 
+
+After the video download, we sample frames from each video (essential frames) that
+include "champions" and "champions layout". We are able to achieve that using pattern
+matching workflow from package "opencv". We use "combat banner" as the identifier 
+for frame capturing since it always appears on center of the screen before each 
+"combat". We fine-tune the workflow for each YouTuber because each of them have 
+different editing styles. The "combat" pattern used is as followed:
+
+![combat_flag](img/combat.png)
+
+We also include "countdown clock" as another identifier for more accurate frame 
+sampling. The convention is that the "countdown clock" show always appears at the 
+moment when the frame capturing happens. (However, it also appears at other moments).
+The "countdown clock" flag is shown as followed:
+
+![countdown_flag](img/countdown_new.png)
+
+The detail workflow is addressed in [Pattern_Matching.ipynb](Pattern_Matching.ipynb).
+
+After acquiring all the key frames. We fine crop each essential frames into cells
+that contains individual champions. This is handled by the [Crop_Images.ipynb](Crop_Images.ipynb).
+Since we do not have the exact location of each cell, plus the image is not a perfect 
+top view of the battlefield, we have to fine tune some hyper-parameter that is used
+to identify the locations of cells. 
 
 #### Model Training
 A general DNN will be used to predict the probability of winning. Thus, the output layer will be a single node. This model will be compared with other possible supervised learning methods to determine the best model.
