@@ -3,4 +3,4 @@
 /img/10
 /img/11
 .DS_Store
-.ipynb_checkpoints
+/.ipynb_checkpoints/
