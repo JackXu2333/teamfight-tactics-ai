@@ -29,6 +29,8 @@ of winning against a particular player.
 
 ### Methodology
 
+![workflow](presentation/Video_Processing_illustration-02.png)
+
 #### Data Cleaning / Acquiring
 
 Our main source of data is coming from famous TFT Youtuber, recorded in the file
